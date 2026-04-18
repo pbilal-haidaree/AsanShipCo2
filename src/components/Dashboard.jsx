@@ -9,7 +9,7 @@ export default function Dashboard({ onLogout }) {
       {/* Header */}
       <header className="dashboard-header">
         <div className="header-left">
-          <h1 className="company-name">AsanShipCo</h1>
+          <h1 className="company-name">AssanShipCo</h1>
           <p className="subtitle">Shipping Management System</p>
         </div>
         <div className="header-right">
