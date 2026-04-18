@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';
 import OrderHistory from '../components/customer/OrderHistory';
+import { mockOrders } from '../data/mockData';
 import '../styles/dashboard.css';
 import '../styles/customer-dashboard.css';
 
@@ -11,7 +12,6 @@ function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
 
   useEffect(() => {
     // Simulate fetching orders from API
-    const { mockOrders } = require('../data/mockData');
     setOrders(mockOrders);
   }, []);
 
