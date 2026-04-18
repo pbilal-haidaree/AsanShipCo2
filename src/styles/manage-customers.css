@@ -1,0 +1,102 @@
+/* Manage Customers Styles */
+.manage-customers {
+  /* Main container */
+}
+
+.customers-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.customers-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customers-table thead {
+  background: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.customers-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.customers-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 13px;
+  color: #555;
+}
+
+.customers-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.customers-table a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.customers-table a:hover {
+  text-decoration: underline;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.view-btn, .delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-btn {
+  background: #95a5a6;
+  color: white;
+}
+
+.view-btn:hover {
+  background: #7f8c8d;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .view-btn, .delete-btn {
+    width: 100%;
+  }
+
+  .customers-table table {
+    font-size: 12px;
+  }
+
+  .customers-table th, .customers-table td {
+    padding: 10px;
+  }
+}
