@@ -7,7 +7,7 @@ function Landing() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1>🚚 AsanShipCo</h1>
+          <h1><img src="/tabIcon.svg" alt="Truck" className="logo-icon" /> AsanShipCo</h1>
           <p>Professional Vehicle Shipping & Logistics</p>
           <Link to="/login" className="hero-cta">
             Get Started
