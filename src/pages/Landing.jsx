@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import Navbar from '../layouts/Navbar';
 import '../styles/landing.css';
 
 function Landing() {
   return (
-    <div className="landing">
+    <>
+      <Navbar isLoggedIn={false} />
+      <div className="landing">
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1><img src="/tabIcon.svg" alt="Truck" className="logo-icon" /> AsanShipCo</h1>
+          <h1><img src="/tab2.png" alt="Truck" className="logo-icon" /> AsanShipCo</h1>
           <p>Professional Vehicle Shipping & Logistics</p>
           <Link to="/login" className="hero-cta">
             Get Started
@@ -88,7 +91,8 @@ function Landing() {
       <footer className="footer">
         <p>&copy; 2024 AsanShipCo. All rights reserved.</p>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

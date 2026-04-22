@@ -76,5 +76,71 @@
 @media (max-width: 768px) {
   .shipping-cards {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .shipping-card {
+    border-radius: 8px;
+  }
+
+  .card-header {
+    padding: 12px;
+  }
+
+  .card-header h3 {
+    font-size: 14px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .card-body p {
+    margin: 6px 0;
+    font-size: 12px;
+  }
+
+  .update-btn {
+    padding: 8px;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shipping-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .shipping-card {
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-header {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-header h3 {
+    font-size: 13px;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-body p {
+    margin: 5px 0;
+    font-size: 11px;
+  }
+
+  .update-btn {
+    width: 100%;
+    padding: 6px;
+    font-size: 11px;
+    margin-top: 10px;
   }
 }

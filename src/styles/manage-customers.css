@@ -83,6 +83,102 @@
   background: #c0392b;
 }
 
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .customers-table th {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .customers-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .view-btn, .delete-btn {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .customers-table {
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  .customers-table table {
+    min-width: 450px;
+  }
+
+  .customers-table th {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .customers-table td {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .view-btn, .delete-btn {
+    padding: 4px 8px;
+    font-size: 10px;
+    flex: 1;
+    min-width: 50px;
+  }
+
+  .customers-table a {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .customers-table {
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .customers-table th {
+    padding: 6px;
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  .customers-table td {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 3px;
+  }
+
+  .view-btn, .delete-btn {
+    padding: 3px 6px;
+    font-size: 9px;
+    flex: 1 1 auto;
+    min-width: 40px;
+  }
+
+  .customers-table a {
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .action-buttons {
     flex-direction: column;

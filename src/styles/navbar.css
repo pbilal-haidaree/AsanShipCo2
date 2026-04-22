@@ -6,6 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
 }
 
 .navbar-container {
@@ -76,6 +77,64 @@
   font-size: 13px;
   color: #7f8c8d;
   font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 15px;
+    height: 50px;
+  }
+
+  .navbar-brand {
+    font-size: 16px;
+    gap: 6px;
+  }
+
+  .brand-icon {
+    font-size: 18px;
+  }
+
+  .navbar-menu {
+    gap: 10px;
+  }
+
+  .navbar-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .user-role {
+    font-size: 11px;
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    height: 45px;
+  }
+
+  .navbar-brand {
+    font-size: 14px;
+  }
+
+  .brand-icon {
+    font-size: 16px;
+  }
+
+  .brand-name {
+    display: none;
+  }
+
+  .navbar-menu {
+    gap: 5px;
+  }
+
+  .navbar-button {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
 }
 
 @media (max-width: 768px) {

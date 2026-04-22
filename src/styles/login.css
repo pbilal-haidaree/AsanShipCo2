@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.75) 0%, rgba(118, 75, 162, 0.75) 100%), url('/assets/port.jpg') center/cover;
+  background-attachment: fixed;
   padding: 20px;
 }
 
@@ -186,15 +187,113 @@
 }
 
 @media (max-width: 600px) {
+  .login-container {
+    padding: 15px;
+  }
+
   .login-box {
-    padding: 30px 20px;
+    padding: 25px 15px;
+    border-radius: 8px;
+  }
+
+  .login-header {
+    margin-bottom: 30px;
   }
 
   .login-header h1 {
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .login-header p {
+    font-size: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .form-group input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .role-selection label {
+    font-size: 13px;
+    margin-bottom: 10px;
   }
 
   .role-buttons {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .role-button {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .login-button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .demo-info {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .demo-title {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .demo-row {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .demo-row span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+    min-height: auto;
+  }
+
+  .login-box {
+    padding: 20px 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-header h1 {
+    font-size: 18px;
+  }
+
+  .form-group input {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .role-button {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .login-button {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .demo-info {
+    display: none;
   }
 }

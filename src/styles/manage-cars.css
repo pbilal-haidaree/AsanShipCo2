@@ -120,12 +120,104 @@
   color: #383d41;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .cars-table th {
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .cars-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
   .action-buttons {
     flex-direction: column;
+    gap: 5px;
   }
 
   .edit-btn, .delete-btn, .view-btn {
     width: 100%;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cars-table {
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  .cars-table table {
+    min-width: 500px;
+  }
+
+  .cars-table th {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .cars-table td {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .edit-btn, .delete-btn, .view-btn {
+    padding: 4px 8px;
+    font-size: 10px;
+    flex: 1;
+    min-width: 50px;
+  }
+
+  .status-badge {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cars-table {
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .cars-table th {
+    padding: 6px;
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  .cars-table td {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .cars-table code {
+    padding: 1px 4px;
+    font-size: 9px;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 3px;
+  }
+
+  .edit-btn, .delete-btn, .view-btn {
+    padding: 3px 6px;
+    font-size: 9px;
+    flex: 1 1 auto;
+    min-width: 40px;
+  }
+
+  .status-badge {
+    padding: 2px 4px;
+    font-size: 8px;
   }
 }

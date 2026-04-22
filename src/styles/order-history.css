@@ -107,12 +107,140 @@
   background: #2980b9;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .orders-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+  }
+
+  .order-header {
+    padding: 12px;
+  }
+
+  .order-id h3 {
+    font-size: 14px;
   }
 
   .order-body {
+    padding: 12px;
+    gap: 15px;
+  }
+
+  .order-details-btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .orders-container {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .order-card {
+    border-radius: 8px;
+  }
+
+  .order-header {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .order-id h3 {
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .order-date {
+    font-size: 11px;
+  }
+
+  .order-status {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .order-body {
+    padding: 12px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .car-details h4, .shipping-details h4 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .car-details p, .shipping-details p {
+    font-size: 12px;
+  }
+
+  .order-footer {
+    padding: 10px 12px;
+  }
+
+  .order-details-btn {
+    padding: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orders-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .order-card {
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .order-header {
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  .order-id h3 {
+    font-size: 12px;
+  }
+
+  .order-date {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  .order-status {
+    padding: 3px 8px;
+    font-size: 10px;
+    align-self: flex-start;
+  }
+
+  .order-body {
+    padding: 10px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .car-details h4, .shipping-details h4 {
+    font-size: 11px;
+    margin-bottom: 6px;
+    letter-spacing: 0;
+  }
+
+  .car-details p, .shipping-details p {
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  .order-footer {
+    padding: 8px 10px;
+  }
+
+  .order-details-btn {
+    width: 100%;
+    padding: 6px;
+    font-size: 11px;
   }
 }
