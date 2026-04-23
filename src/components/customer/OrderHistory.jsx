@@ -1,8 +1,8 @@
 import '../../styles/order-history.css';
 
-function OrderHistory({ orders }) {
-  const getStatusColor = (status) => {
-    switch (status) {
+function OrderHistory({ orders, title = '📋 Order History', status }) {
+  const getStatusColor = (orderStatus) => {
+    switch (orderStatus) {
       case 'Delivered':
         return 'status-delivered';
       case 'In Transit':
@@ -19,7 +19,7 @@ function OrderHistory({ orders }) {
   return (
     <div className="order-history">
       <div className="section-header">
-        <h2>📋 Order History</h2>
+        <h2>{title}</h2>
         <p>View and track all your orders</p>
       </div>
 

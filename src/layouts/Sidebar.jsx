@@ -9,7 +9,10 @@ function Sidebar({ userRole, activeSection, onSectionChange }) {
   ];
 
   const customerSections = [
-    { id: 'orders', label: '📋 Order History', icon: '📋' }
+    { id: 'all', label: '📋 All Orders', icon: '📋' },
+    { id: 'pending', label: '⏳ Pending', icon: '⏳' },
+    { id: 'in-process', label: '🚚 In Process', icon: '🚚' },
+    { id: 'delivered', label: '✅ Delivered', icon: '✅' }
   ];
 
   const sections = userRole === 'admin' ? adminSections : customerSections;

@@ -82,7 +82,7 @@ function Landing() {
           <h2>Ready to Ship Your Vehicle?</h2>
           <p>Join thousands of satisfied customers who trust AsanShipCo</p>
           <Link to="/login" className="cta-button">
-            Login / Sign Up
+            Login
           </Link>
         </div>
       </section>

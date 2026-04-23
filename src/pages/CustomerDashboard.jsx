@@ -7,13 +7,36 @@ import '../styles/dashboard.css';
 import '../styles/customer-dashboard.css';
 
 function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
-  const [activeSection, setActiveSection] = useState('orders');
+  const [activeSection, setActiveSection] = useState('all');
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     // Simulate fetching orders from API
     setOrders(mockOrders);
   }, []);
+
+  // Filter orders based on status
+  const getFilteredOrders = () => {
+    if (activeSection === 'all') {
+      return orders;
+    }
+    
+    const statusMap = {
+      'pending': 'Pending',
+      'in-process': 'In Transit',
+      'delivered': 'Delivered'
+    };
+
+    return orders.filter(order => order.status === statusMap[activeSection]);
+  };
+
+  const filteredOrders = getFilteredOrders();
+  const statusLabels = {
+    'all': 'All Orders',
+    'pending': 'Pending Orders',
+    'in-process': 'Orders In Process',
+    'delivered': 'Delivered Orders'
+  };
 
   return (
     <div className="dashboard-wrapper">
@@ -27,8 +50,12 @@ function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
         />
 
         <main className="dashboard-content">
-          {activeSection === 'orders' && (
-            <OrderHistory orders={orders} />
+          {(activeSection === 'all' || activeSection === 'pending' || activeSection === 'in-process' || activeSection === 'delivered') && (
+            <OrderHistory 
+              orders={filteredOrders}
+              title={statusLabels[activeSection]}
+              status={activeSection === 'all' ? null : activeSection}
+            />
           )}
         </main>
       </div>
