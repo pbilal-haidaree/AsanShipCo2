@@ -1,3 +1,4 @@
+import ImageCarousel from '../ImageCarousel';
 import '../../styles/order-history.css';
 
 function OrderHistory({ orders, title = '📋 Order History', status }) {
@@ -42,6 +43,11 @@ function OrderHistory({ orders, title = '📋 Order History', status }) {
               </div>
 
               <div className="order-body">
+                <div className="car-carousel-section">
+                  <h4>Vehicle Images</h4>
+                  <ImageCarousel images={order.carDetails.images || []} />
+                </div>
+
                 <div className="car-details">
                   <h4>Vehicle Details</h4>
                   <p><strong>Make:</strong> {order.carDetails.make}</p>

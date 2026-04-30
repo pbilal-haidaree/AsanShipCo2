@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';
 import OrderHistory from '../components/customer/OrderHistory';
+import Contact from '../components/Contact';
 import { mockOrders } from '../data/mockData';
 import '../styles/dashboard.css';
 import '../styles/customer-dashboard.css';
@@ -59,6 +60,9 @@ function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
           )}
         </main>
       </div>
+
+      {/* Contact Section */}
+      <Contact compact={true} />
     </div>
   );
 }

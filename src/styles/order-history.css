@@ -244,3 +244,31 @@
     font-size: 11px;
   }
 }
+
+/* Carousel Section in Order History */
+.car-carousel-section {
+  grid-column: 1 / -1;
+}
+
+.car-carousel-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .car-carousel-section h4 {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .car-carousel-section h4 {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+}

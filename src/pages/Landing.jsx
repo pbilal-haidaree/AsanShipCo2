@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../layouts/Navbar';
+import Contact from '../components/Contact';
 import '../styles/landing.css';
 
 function Landing() {
@@ -86,6 +87,9 @@ function Landing() {
           </Link>
         </div>
       </section>
+
+      {/* Contact Section */}
+      <Contact />
 
       {/* Footer */}
       <footer className="footer">

@@ -140,7 +140,7 @@
     flex: 1;
     overflow-y: visible;
     padding: 12px;
-    background: linear-gradient(135deg, rgba(245, 247, 250, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%), url('/src/assets/cargoship1.jpg') center/cover;
+    background: linear-gradient(135deg, rgba(245, 247, 250, 0.98) 0%, rgba(248, 249, 250, 0.98) 100%);
   }
 
   .section-header {

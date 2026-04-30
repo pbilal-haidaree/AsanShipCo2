@@ -8,7 +8,8 @@ export const mockCars = [
     year: 2023,
     color: "Silver",
     licensePlate: "ABC123",
-    status: "Available"
+    status: "Available",
+    images: []
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ export const mockCars = [
     year: 2023,
     color: "Blue",
     licensePlate: "XYZ789",
-    status: "In Transit"
+    status: "In Transit",
+    images: []
   },
   {
     id: 3,
@@ -26,7 +28,8 @@ export const mockCars = [
     year: 2022,
     color: "Red",
     licensePlate: "LMN456",
-    status: "Available"
+    status: "Available",
+    images: []
   }
 ];
 
@@ -61,7 +64,8 @@ export const mockOrders = [
     carDetails: {
       make: "Toyota",
       model: "Camry",
-      year: 2023
+      year: 2023,
+      images: []
     },
     status: "Delivered",
     shippingAddress: "123 Main St, New York, NY 10001",
@@ -74,7 +78,8 @@ export const mockOrders = [
     carDetails: {
       make: "Honda",
       model: "CR-V",
-      year: 2023
+      year: 2023,
+      images: []
     },
     status: "In Transit",
     shippingAddress: "456 Oak Ave, Los Angeles, CA 90001",
@@ -87,7 +92,8 @@ export const mockOrders = [
     carDetails: {
       make: "Ford",
       model: "F-150",
-      year: 2022
+      year: 2022,
+      images: []
     },
     status: "Processing",
     shippingAddress: "789 Pine Rd, Chicago, IL 60601",
@@ -100,7 +106,8 @@ export const mockOrders = [
     carDetails: {
       make: "BMW",
       model: "X5",
-      year: 2024
+      year: 2024,
+      images: []
     },
     status: "Pending",
     shippingAddress: "321 Elm St, Houston, TX 77001",

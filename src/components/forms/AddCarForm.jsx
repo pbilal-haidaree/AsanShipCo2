@@ -9,14 +9,55 @@ function AddCarForm({ onSubmit, onCancel }) {
     year: new Date().getFullYear(),
     color: '',
     licensePlate: '',
-    status: 'Available'
+    status: 'Available',
+    images: []
   });
+
+  const [imagePreview, setImagePreview] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: name === 'year' ? parseInt(value) : value
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    
+    // Limit to 20 images
+    if (files.length + imagePreview.length > 20) {
+      alert('Maximum 20 images allowed per car');
+      return;
+    }
+
+    const readers = files.map(file => {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(readers).then(results => {
+      const newPreviews = [...imagePreview, ...results];
+      setImagePreview(newPreviews);
+      setFormData(prev => ({
+        ...prev,
+        images: newPreviews
+      }));
+    });
+  };
+
+  const removeImage = (index) => {
+    const newPreviews = imagePreview.filter((_, i) => i !== index);
+    setImagePreview(newPreviews);
+    setFormData(prev => ({
+      ...prev,
+      images: newPreviews
     }));
   };
 
@@ -30,8 +71,10 @@ function AddCarForm({ onSubmit, onCancel }) {
         year: new Date().getFullYear(),
         color: '',
         licensePlate: '',
-        status: 'Available'
+        status: 'Available',
+        images: []
       });
+      setImagePreview([]);
     } else {
       alert('Please fill in all required fields');
     }
@@ -121,6 +164,39 @@ function AddCarForm({ onSubmit, onCancel }) {
           </select>
         </div>
       </div>
+
+      <div className="form-group">
+        <label htmlFor="images">Car Images (up to 20 images)</label>
+        <input
+          type="file"
+          id="images"
+          multiple
+          accept="image/*"
+          onChange={handleImageChange}
+          disabled={imagePreview.length >= 20}
+          className="file-input"
+        />
+        <p className="file-hint">
+          {imagePreview.length}/20 images uploaded
+        </p>
+      </div>
+
+      {imagePreview.length > 0 && (
+        <div className="image-preview-grid">
+          {imagePreview.map((preview, index) => (
+            <div key={index} className="image-preview-item">
+              <img src={preview} alt={`Preview ${index + 1}`} />
+              <button
+                type="button"
+                className="remove-image-btn"
+                onClick={() => removeImage(index)}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="form-actions">
         <button type="submit" className="btn-primary" onClick={handleSubmit}>
