@@ -1,13 +1,9 @@
-/* Manage Customers Styles */
-.manage-customers {
-  /* Main container */
-}
-
 .customers-table {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
+  border: 1px solid var(--gray-200);
 }
 
 .customers-table table {
@@ -16,183 +12,52 @@
 }
 
 .customers-table thead {
-  background: #f8f9fa;
-  border-bottom: 2px solid #e0e0e0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .customers-table th {
-  padding: 14px;
+  padding: 12px 16px;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .customers-table td {
-  padding: 14px;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 13px;
-  color: #555;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 14px;
+  color: var(--gray-700);
 }
 
 .customers-table tbody tr:hover {
-  background: #f8f9fa;
+  background: var(--gray-50);
 }
 
 .customers-table a {
-  color: #3498db;
+  color: var(--primary);
   text-decoration: none;
+  font-weight: 500;
 }
 
 .customers-table a:hover {
   text-decoration: underline;
 }
 
-.action-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.view-btn, .delete-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-btn {
-  background: #95a5a6;
-  color: white;
-}
-
-.view-btn:hover {
-  background: #7f8c8d;
-}
-
-.delete-btn {
-  background: #e74c3c;
-  color: white;
-}
-
-.delete-btn:hover {
-  background: #c0392b;
-}
-
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .customers-table th {
-    padding: 10px;
-    font-size: 11px;
-  }
-
-  .customers-table td {
-    padding: 10px;
-    font-size: 12px;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .view-btn, .delete-btn {
-    width: 100%;
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-}
-
 @media (max-width: 768px) {
   .customers-table {
     overflow-x: auto;
-    border-radius: 8px;
   }
 
   .customers-table table {
-    min-width: 450px;
-  }
-
-  .customers-table th {
-    padding: 8px;
-    font-size: 10px;
-  }
-
-  .customers-table td {
-    padding: 8px;
-    font-size: 11px;
-  }
-
-  .action-buttons {
-    flex-direction: row;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
-
-  .view-btn, .delete-btn {
-    padding: 4px 8px;
-    font-size: 10px;
-    flex: 1;
-    min-width: 50px;
-  }
-
-  .customers-table a {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 480px) {
-  .customers-table {
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  }
-
-  .customers-table th {
-    padding: 6px;
-    font-size: 9px;
-    letter-spacing: 0;
-  }
-
-  .customers-table td {
-    padding: 6px;
-    font-size: 10px;
-  }
-
-  .action-buttons {
-    flex-direction: row;
-    gap: 3px;
-  }
-
-  .view-btn, .delete-btn {
-    padding: 3px 6px;
-    font-size: 9px;
-    flex: 1 1 auto;
-    min-width: 40px;
-  }
-
-  .customers-table a {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .view-btn, .delete-btn {
-    width: 100%;
-  }
-
-  .customers-table table {
-    font-size: 12px;
+    min-width: 480px;
   }
 
   .customers-table th, .customers-table td {
-    padding: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
   }
 }

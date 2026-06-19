@@ -1,13 +1,9 @@
-/* Manage Cars Styles */
-.manage-cars {
-  /* Main container */
-}
-
 .cars-table {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
+  border: 1px solid var(--gray-200);
 }
 
 .cars-table table {
@@ -16,208 +12,105 @@
 }
 
 .cars-table thead {
-  background: #f8f9fa;
-  border-bottom: 2px solid #e0e0e0;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .cars-table th {
-  padding: 14px;
+  padding: 12px 16px;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .cars-table td {
-  padding: 14px;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 13px;
-  color: #555;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 14px;
+  color: var(--gray-700);
 }
 
 .cars-table tbody tr:hover {
-  background: #f8f9fa;
+  background: var(--gray-50);
 }
 
 .cars-table code {
-  background: #f0f0f0;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 11px;
-  color: #e74c3c;
+  background: var(--gray-100);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--gray-700);
+  font-weight: 500;
 }
 
 .action-buttons {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .edit-btn, .delete-btn, .view-btn {
   padding: 6px 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition);
 }
 
 .edit-btn {
-  background: #3498db;
-  color: white;
+  background: var(--primary-50);
+  color: var(--primary);
 }
 
 .edit-btn:hover {
-  background: #2980b9;
+  background: var(--primary-100);
+  box-shadow: none;
 }
 
 .delete-btn {
-  background: #e74c3c;
-  color: white;
+  background: #fef2f2;
+  color: #dc2626;
 }
 
 .delete-btn:hover {
-  background: #c0392b;
+  background: #fee2e2;
+  box-shadow: none;
 }
 
 .view-btn {
-  background: #95a5a6;
-  color: white;
+  background: var(--gray-100);
+  color: var(--gray-600);
 }
 
 .view-btn:hover {
-  background: #7f8c8d;
-}
-
-.status-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display: inline-block;
-}
-
-.status-available {
-  background: #d4edda;
-  color: #155724;
-}
-
-.status-in-transit {
-  background: #cce5ff;
-  color: #004085;
-}
-
-.status-in-maintenance {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.status-sold {
-  background: #e2e3e5;
-  color: #383d41;
-}
-
-@media (max-width: 1024px) {
-  .cars-table th {
-    padding: 10px;
-    font-size: 11px;
-  }
-
-  .cars-table td {
-    padding: 10px;
-    font-size: 12px;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .edit-btn, .delete-btn, .view-btn {
-    width: 100%;
-    padding: 5px 10px;
-    font-size: 11px;
-  }
+  background: var(--gray-200);
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
   .cars-table {
     overflow-x: auto;
-    border-radius: 8px;
   }
 
   .cars-table table {
-    min-width: 500px;
+    min-width: 560px;
   }
 
-  .cars-table th {
-    padding: 8px;
-    font-size: 10px;
-  }
-
-  .cars-table td {
-    padding: 8px;
-    font-size: 11px;
+  .cars-table th, .cars-table td {
+    padding: 10px 12px;
+    font-size: 13px;
   }
 
   .action-buttons {
-    flex-direction: row;
     gap: 4px;
-    flex-wrap: wrap;
   }
 
   .edit-btn, .delete-btn, .view-btn {
-    padding: 4px 8px;
-    font-size: 10px;
-    flex: 1;
-    min-width: 50px;
-  }
-
-  .status-badge {
-    padding: 3px 6px;
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cars-table {
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  }
-
-  .cars-table th {
-    padding: 6px;
-    font-size: 9px;
-    letter-spacing: 0;
-  }
-
-  .cars-table td {
-    padding: 6px;
-    font-size: 10px;
-  }
-
-  .cars-table code {
-    padding: 1px 4px;
-    font-size: 9px;
-  }
-
-  .action-buttons {
-    flex-direction: row;
-    gap: 3px;
-  }
-
-  .edit-btn, .delete-btn, .view-btn {
-    padding: 3px 6px;
-    font-size: 9px;
-    flex: 1 1 auto;
-    min-width: 40px;
-  }
-
-  .status-badge {
-    padding: 2px 4px;
-    font-size: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
   }
 }
