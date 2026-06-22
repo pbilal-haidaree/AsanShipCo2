@@ -3,12 +3,13 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models.customer import Customer
 from schemas.customer import CustomerCreate, CustomerUpdate, CustomerResponse
+from utils.auth import get_current_user, require_admin
 
 router = APIRouter(prefix="/api/customers", tags=["customers"])
 
 
 @router.post("", response_model=CustomerResponse)
-def create_customer(customer: CustomerCreate, db: Session = Depends(get_db)):
+def create_customer(customer: CustomerCreate, db: Session = Depends(get_db), _=Depends(require_admin)):
     db_customer = Customer(
         name=customer.name,
         email=customer.email,
@@ -22,12 +23,12 @@ def create_customer(customer: CustomerCreate, db: Session = Depends(get_db)):
 
 
 @router.get("", response_model=list[CustomerResponse])
-def get_all_customers(db: Session = Depends(get_db)):
+def get_all_customers(db: Session = Depends(get_db), _=Depends(require_admin)):
     return db.query(Customer).all()
 
 
 @router.get("/{customer_id}", response_model=CustomerResponse)
-def get_customer(customer_id: int, db: Session = Depends(get_db)):
+def get_customer(customer_id: int, db: Session = Depends(get_db), _=Depends(get_current_user)):
     customer = db.query(Customer).filter(Customer.id == customer_id).first()
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
@@ -35,7 +36,7 @@ def get_customer(customer_id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/{customer_id}", response_model=CustomerResponse)
-def update_customer(customer_id: int, data: CustomerUpdate, db: Session = Depends(get_db)):
+def update_customer(customer_id: int, data: CustomerUpdate, db: Session = Depends(get_db), _=Depends(require_admin)):
     customer = db.query(Customer).filter(Customer.id == customer_id).first()
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
@@ -49,10 +50,13 @@ def update_customer(customer_id: int, data: CustomerUpdate, db: Session = Depend
 
 
 @router.delete("/{customer_id}")
-def delete_customer(customer_id: int, db: Session = Depends(get_db)):
+def delete_customer(customer_id: int, db: Session = Depends(get_db), _=Depends(require_admin)):
     customer = db.query(Customer).filter(Customer.id == customer_id).first()
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
+
+    if customer.orders:
+        raise HTTPException(status_code=400, detail="Cannot delete customer with existing orders")
 
     db.delete(customer)
     db.commit()

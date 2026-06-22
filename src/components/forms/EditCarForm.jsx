@@ -1,10 +1,22 @@
 import { useState } from 'react';
+import { updateCar, uploadCarImages, deleteCarImage, imageUrl } from '../../services/api';
 import { carStatuses } from '../../data/mockData';
 import '../../styles/forms.css';
 
 function EditCarForm({ car, onSubmit, onCancel }) {
-  const [formData, setFormData] = useState(car);
-  const [imagePreview, setImagePreview] = useState(car.images || []);
+  const [formData, setFormData] = useState({
+    make: car.make,
+    model: car.model,
+    year: car.year,
+    color: car.color || '',
+    license_plate: car.license_plate,
+    status: car.status,
+  });
+  const [existingImages, setExistingImages] = useState(car.images || []);
+  const [newFiles, setNewFiles] = useState([]);
+  const [newPreviews, setNewPreviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,125 +28,101 @@ function EditCarForm({ car, onSubmit, onCancel }) {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    
-    // Limit to 20 images
-    if (files.length + imagePreview.length > 20) {
-      alert('Maximum 20 images allowed per car');
+    const total = existingImages.length + newFiles.length + files.length;
+    if (total > 10) {
+      alert('Maximum 10 images allowed per car');
       return;
     }
+
+    setNewFiles(prev => [...prev, ...files]);
 
     const readers = files.map(file => {
       return new Promise(resolve => {
         const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve(reader.result);
-        };
+        reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(file);
       });
     });
 
     Promise.all(readers).then(results => {
-      const newPreviews = [...imagePreview, ...results];
-      setImagePreview(newPreviews);
-      setFormData(prev => ({
-        ...prev,
-        images: newPreviews
-      }));
+      setNewPreviews(prev => [...prev, ...results]);
     });
   };
 
-  const removeImage = (index) => {
-    const newPreviews = imagePreview.filter((_, i) => i !== index);
-    setImagePreview(newPreviews);
-    setFormData(prev => ({
-      ...prev,
-      images: newPreviews
-    }));
+  const removeExistingImage = async (imgPath) => {
+    const filename = imgPath.split('/').pop();
+    try {
+      await deleteCarImage(car.id, filename);
+      setExistingImages(prev => prev.filter(p => p !== imgPath));
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const removeNewImage = (index) => {
+    setNewFiles(prev => prev.filter((_, i) => i !== index));
+    setNewPreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.make && formData.model && formData.licensePlate) {
-      onSubmit(formData);
-    } else {
-      alert('Please fill in all required fields');
+    if (!formData.make || !formData.model || !formData.license_plate) {
+      setError('Please fill in all required fields');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      await updateCar(car.id, formData);
+      if (newFiles.length > 0) {
+        await uploadCarImages(car.id, newFiles);
+      }
+      onSubmit();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form className="form-card edit-car-form">
+    <form className="form-card edit-car-form" onSubmit={handleSubmit}>
       <h3>Edit Car</h3>
-      
+
+      {error && <p className="form-error">{error}</p>}
+
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="make">Make *</label>
-          <input
-            type="text"
-            id="make"
-            name="make"
-            value={formData.make}
-            onChange={handleChange}
-            required
-          />
+          <label htmlFor="edit-make">Make *</label>
+          <input type="text" id="edit-make" name="make" value={formData.make} onChange={handleChange} required />
         </div>
         <div className="form-group">
-          <label htmlFor="model">Model *</label>
-          <input
-            type="text"
-            id="model"
-            name="model"
-            value={formData.model}
-            onChange={handleChange}
-            required
-          />
+          <label htmlFor="edit-model">Model *</label>
+          <input type="text" id="edit-model" name="model" value={formData.model} onChange={handleChange} required />
         </div>
       </div>
 
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="year">Year</label>
-          <input
-            type="number"
-            id="year"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            min="1900"
-            max={new Date().getFullYear() + 1}
-          />
+          <label htmlFor="edit-year">Year</label>
+          <input type="number" id="edit-year" name="year" value={formData.year} onChange={handleChange} min="1900" max={new Date().getFullYear() + 1} />
         </div>
         <div className="form-group">
-          <label htmlFor="color">Color</label>
-          <input
-            type="text"
-            id="color"
-            name="color"
-            value={formData.color}
-            onChange={handleChange}
-          />
+          <label htmlFor="edit-color">Color</label>
+          <input type="text" id="edit-color" name="color" value={formData.color} onChange={handleChange} />
         </div>
       </div>
 
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor="licensePlate">License Plate *</label>
-          <input
-            type="text"
-            id="licensePlate"
-            name="licensePlate"
-            value={formData.licensePlate}
-            onChange={handleChange}
-            required
-          />
+          <label htmlFor="edit-license_plate">License Plate *</label>
+          <input type="text" id="edit-license_plate" name="license_plate" value={formData.license_plate} onChange={handleChange} required />
         </div>
         <div className="form-group">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-          >
+          <label htmlFor="edit-status">Status</label>
+          <select id="edit-status" name="status" value={formData.status} onChange={handleChange}>
             {carStatuses.map(status => (
               <option key={status} value={status}>{status}</option>
             ))}
@@ -143,45 +131,32 @@ function EditCarForm({ car, onSubmit, onCancel }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="images">Car Images (up to 20 images)</label>
-        <input
-          type="file"
-          id="images"
-          multiple
-          accept="image/*"
-          onChange={handleImageChange}
-          disabled={imagePreview.length >= 20}
-          className="file-input"
-        />
-        <p className="file-hint">
-          {imagePreview.length}/20 images
-        </p>
+        <label htmlFor="edit-images">Add Images ({existingImages.length + newFiles.length}/10)</label>
+        <input type="file" id="edit-images" multiple accept=".jpg,.jpeg,.png,.webp" onChange={handleImageChange} disabled={existingImages.length + newFiles.length >= 10} className="file-input" />
       </div>
 
-      {imagePreview.length > 0 && (
+      {(existingImages.length > 0 || newPreviews.length > 0) && (
         <div className="image-preview-grid">
-          {imagePreview.map((preview, index) => (
-            <div key={index} className="image-preview-item">
-              <img src={preview} alt={`Preview ${index + 1}`} />
-              <button
-                type="button"
-                className="remove-image-btn"
-                onClick={() => removeImage(index)}
-              >
-                ✕
-              </button>
+          {existingImages.map((imgPath, index) => (
+            <div key={`existing-${index}`} className="image-preview-item">
+              <img src={imageUrl(imgPath)} alt={`Car image ${index + 1}`} />
+              <button type="button" className="remove-image-btn" onClick={() => removeExistingImage(imgPath)}>x</button>
+            </div>
+          ))}
+          {newPreviews.map((preview, index) => (
+            <div key={`new-${index}`} className="image-preview-item">
+              <img src={preview} alt={`New image ${index + 1}`} />
+              <button type="button" className="remove-image-btn" onClick={() => removeNewImage(index)}>x</button>
             </div>
           ))}
         </div>
       )}
 
       <div className="form-actions">
-        <button type="submit" className="btn-primary" onClick={handleSubmit}>
-          Update Car
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? 'Updating...' : 'Update Car'}
         </button>
-        <button type="button" className="btn-secondary" onClick={onCancel}>
-          Cancel
-        </button>
+        <button type="button" className="btn-secondary" onClick={onCancel}>Cancel</button>
       </div>
     </form>
   );

@@ -4,44 +4,41 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import CustomerDashboard from './pages/CustomerDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import { getStoredUser, logout as apiLogout } from './services/api';
 import './App.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null);
+  const [user, setUser] = useState(() => getStoredUser());
 
-  const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
+  const isLoggedIn = !!user;
+  const userRole = user?.role || null;
+
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserRole(null);
-  };
-
-  const handleSetRole = (role) => {
-    setUserRole(role);
+    apiLogout();
+    setUser(null);
   };
 
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
-        <Route 
-          path="/login" 
+        <Route
+          path="/login"
           element={
             isLoggedIn ? (
               <Navigate to={userRole === 'admin' ? '/admin-dashboard' : '/customer-dashboard'} />
             ) : (
-              <Login onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole} />
+              <Login onLoginSuccess={handleLoginSuccess} />
             )
           }
         />
 
-        {/* Protected Routes */}
-        <Route 
-          path="/customer-dashboard" 
+        <Route
+          path="/customer-dashboard"
           element={
             isLoggedIn && userRole === 'customer' ? (
               <CustomerDashboard userRole={userRole} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
@@ -51,8 +48,8 @@ function App() {
           }
         />
 
-        <Route 
-          path="/admin-dashboard" 
+        <Route
+          path="/admin-dashboard"
           element={
             isLoggedIn && userRole === 'admin' ? (
               <AdminDashboard userRole={userRole} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
@@ -62,7 +59,6 @@ function App() {
           }
         />
 
-        {/* Catch all - redirect to home */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

@@ -1,13 +1,30 @@
-from fastapi import FastAPI
+import os
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from sqlalchemy.exc import IntegrityError
 from config import ALLOWED_ORIGINS
 from database import engine, Base
 from routes.auth import router as auth_router
+from routes.cars import router as cars_router
 from routes.customers import router as customers_router
+from routes.images import router as images_router
+from routes.orders import router as orders_router
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="AsanShipCo API")
+
+
+@app.exception_handler(IntegrityError)
+async def integrity_error_handler(request: Request, exc: IntegrityError):
+    return JSONResponse(status_code=409, content={"detail": "A record with that data already exists"})
+
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +35,14 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+app.include_router(cars_router)
 app.include_router(customers_router)
+app.include_router(images_router)
+app.include_router(orders_router)
+
+uploads_dir = os.path.join(os.path.dirname(__file__), "uploads")
+os.makedirs(uploads_dir, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 
 
 @app.get("/api/health")

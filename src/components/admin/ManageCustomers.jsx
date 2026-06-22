@@ -1,39 +1,61 @@
-import { useState } from 'react';
-import { mockCustomers } from '../../data/mockData';
+import { useState, useEffect } from 'react';
+import { getCustomers, deleteCustomer } from '../../services/api';
 import AddCustomerForm from '../forms/AddCustomerForm';
 import '../../styles/manage-customers.css';
 
 function ManageCustomers() {
-  const [customers, setCustomers] = useState(mockCustomers);
+  const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
 
-  const handleAddCustomer = (newCustomer) => {
-    const customerWithId = { ...newCustomer, id: Math.max(...customers.map(c => c.id), 0) + 1, joinDate: new Date().toISOString().split('T')[0] };
-    setCustomers([...customers, customerWithId]);
-    setShowAddForm(false);
-  };
-
-  const handleDeleteCustomer = (customerId) => {
-    if (confirm('Are you sure you want to delete this customer?')) {
-      setCustomers(customers.filter(customer => customer.id !== customerId));
+  const fetchCustomers = async () => {
+    try {
+      setLoading(true);
+      const data = await getCustomers();
+      setCustomers(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => { fetchCustomers(); }, []);
+
+  const handleCustomerAdded = () => {
+    setShowAddForm(false);
+    fetchCustomers();
+  };
+
+  const handleDeleteCustomer = async (customerId) => {
+    if (!confirm('Are you sure you want to delete this customer?')) return;
+    try {
+      await deleteCustomer(customerId);
+      fetchCustomers();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  if (loading) return <div className="manage-customers"><p>Loading customers...</p></div>;
+  if (error) return <div className="manage-customers"><p className="error-text">Error: {error}</p></div>;
 
   return (
     <div className="manage-customers">
       <div className="section-header">
-        <h2>👥 Manage Customers</h2>
-        <button 
+        <h2>Manage Customers</h2>
+        <button
           className="add-button"
           onClick={() => setShowAddForm(!showAddForm)}
         >
-          {showAddForm ? '✕ Cancel' : '+ Add Customer'}
+          {showAddForm ? 'Cancel' : '+ Add Customer'}
         </button>
       </div>
 
       {showAddForm && (
-        <AddCustomerForm 
-          onSubmit={handleAddCustomer}
+        <AddCustomerForm
+          onSubmit={handleCustomerAdded}
           onCancel={() => setShowAddForm(false)}
         />
       )}
@@ -45,30 +67,33 @@ function ManageCustomers() {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Join Date</th>
+              <th>Joined</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {customers.map(customer => (
-              <tr key={customer.id}>
-                <td>{customer.name}</td>
-                <td><a href={`mailto:${customer.email}`}>{customer.email}</a></td>
-                <td>{customer.phone}</td>
-                <td>{customer.joinDate}</td>
-                <td>
-                  <div className="action-buttons">
-                    <button className="view-btn">👁 View</button>
-                    <button 
-                      className="delete-btn"
-                      onClick={() => handleDeleteCustomer(customer.id)}
-                    >
-                      🗑 Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {customers.length === 0 ? (
+              <tr><td colSpan="5" style={{ textAlign: 'center' }}>No customers found</td></tr>
+            ) : (
+              customers.map(customer => (
+                <tr key={customer.id}>
+                  <td>{customer.name}</td>
+                  <td><a href={`mailto:${customer.email}`}>{customer.email}</a></td>
+                  <td>{customer.phone}</td>
+                  <td>{new Date(customer.created_at).toLocaleDateString()}</td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteCustomer(customer.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

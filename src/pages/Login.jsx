@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { login } from '../services/api';
 import '../styles/login.css';
 
-function Login({ onLoginSuccess, onSetRole }) {
-  const [selectedRole, setSelectedRole] = useState('');
+function Login({ onLoginSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -13,19 +15,28 @@ function Login({ onLoginSuccess, onSetRole }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setError('');
   };
 
-  const handleLogin = (role) => {
-    if (formData.email && formData.password && role) {
-      onSetRole(role);
-      onLoginSuccess();
-      navigate(role === 'admin' ? '/admin-dashboard' : '/customer-dashboard');
-    } else {
-      alert('Please fill in all fields and select a role');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const user = await login(formData.email, formData.password);
+      onLoginSuccess(user);
+      navigate(user.role === 'admin' ? '/admin-dashboard' : '/customer-dashboard');
+    } catch (err) {
+      setError(err.message || 'Login failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +63,9 @@ function Login({ onLoginSuccess, onSetRole }) {
             <p>Enter your credentials to continue</p>
           </div>
 
-          <form className="login-form" onSubmit={(e) => { e.preventDefault(); }}>
+          {error && <div className="login-error">{error}</div>}
+
+          <form className="login-form" onSubmit={handleLogin}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -93,49 +106,19 @@ function Login({ onLoginSuccess, onSetRole }) {
               </div>
             </div>
 
-            <div className="role-selection">
-              <label>Sign in as</label>
-              <div className="role-buttons">
-                <button
-                  type="button"
-                  className={`role-button ${selectedRole === 'customer' ? 'active' : ''}`}
-                  onClick={() => setSelectedRole('customer')}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  Customer
-                </button>
-                <button
-                  type="button"
-                  className={`role-button ${selectedRole === 'admin' ? 'active' : ''}`}
-                  onClick={() => setSelectedRole('admin')}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                  Admin
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="login-button"
-              onClick={() => handleLogin(selectedRole)}
-            >
-              Sign In
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
           <div className="demo-info">
             <div className="demo-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              Demo Credentials
-            </div>
-            <div className="demo-row">
-              <span className="demo-label">Customer</span>
-              <code>customer@example.com / password</code>
+              Default Credentials
             </div>
             <div className="demo-row">
               <span className="demo-label">Admin</span>
-              <code>admin@example.com / password</code>
+              <code>admin@asanshipco.com / admin123!</code>
             </div>
           </div>
         </div>
