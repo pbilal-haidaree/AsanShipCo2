@@ -1,3 +1,4 @@
+/* Global CSS variables (colors, shadows, radii, transitions) and base reset styles. */
 :root {
   --primary: #4f46e5;
   --primary-light: #818cf8;

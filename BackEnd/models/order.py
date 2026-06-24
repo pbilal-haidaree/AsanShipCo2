@@ -1,3 +1,4 @@
+# Order model. Links a customer to a car with shipping status, address, and delivery dates.
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone

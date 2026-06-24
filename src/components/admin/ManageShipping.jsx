@@ -1,3 +1,4 @@
+// Admin shipping management. Views orders, creates new ones, and updates shipping statuses.
 import { useState, useEffect } from 'react';
 import { getOrders, updateOrder } from '../../services/api';
 import { shippingStatuses } from '../../data/mockData';

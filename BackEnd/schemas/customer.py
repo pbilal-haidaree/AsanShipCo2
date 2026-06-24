@@ -1,3 +1,4 @@
+# Pydantic schemas for customer creation, update, and API response serialization.
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 

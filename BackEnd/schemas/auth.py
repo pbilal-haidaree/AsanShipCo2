@@ -1,3 +1,4 @@
+# Pydantic schemas for authentication: login/register requests and token/user responses.
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
 

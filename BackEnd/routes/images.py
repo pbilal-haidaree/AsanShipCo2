@@ -1,3 +1,4 @@
+# Car image upload and deletion endpoints. Admin-only, max 10 images per upload, 5MB limit.
 import os
 import uuid
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File

@@ -1,3 +1,4 @@
+# Pydantic schemas for order CRUD and nested car/customer summaries in responses.
 from pydantic import BaseModel, Field
 from datetime import datetime
 

@@ -1,3 +1,4 @@
+// Edit car form. Updates an existing car's details and manages its uploaded images.
 import { useState } from 'react';
 import { updateCar, uploadCarImages, deleteCarImage, imageUrl } from '../../services/api';
 import { carStatuses } from '../../data/mockData';

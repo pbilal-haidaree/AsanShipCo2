@@ -1,3 +1,4 @@
+// Customer car browser. Shows available vehicles in a responsive grid with image carousels.
 import { useState, useEffect } from 'react';
 import { getAvailableCars, imageUrl } from '../../services/api';
 import ImageCarousel from '../ImageCarousel';

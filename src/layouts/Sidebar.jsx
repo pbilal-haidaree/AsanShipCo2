@@ -1,3 +1,4 @@
+// Dashboard sidebar. Renders different nav items for admin vs customer roles with mobile drawer.
 import { useState } from 'react';
 import '../styles/sidebar.css';
 

@@ -1,3 +1,4 @@
+// Root component. Manages auth state, defines all routes, and enforces role-based access.
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Landing from './pages/Landing';

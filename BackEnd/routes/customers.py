@@ -1,3 +1,4 @@
+# Customer CRUD endpoints. Admin-only for all operations except single-customer lookup.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db

@@ -1,198 +1,182 @@
-# AsanShipCo - Order Management & Tracking System
+# AsanShipCo
 
-A comprehensive order management and product tracking platform built for AsanShipCo customers. This full-stack application enables customers to browse products, manage orders, and track shipments while providing administrators with powerful tools to manage inventory, customers, and shipping operations.
+Vehicle shipping and logistics management platform. Manages cars, customers, and shipping orders with role-based dashboards for admins and customers.
 
-## 📋 Overview
+## Tech Stack
 
-AsanShipCo is an enterprise-grade e-commerce order management system designed to streamline customer interactions and administrative operations. The platform provides a seamless experience for customers to track their purchases and shipping status, while giving administrators complete control over product catalog, customer management, and order fulfillment.
+| Layer        | Technology                                       |
+| ------------ | ------------------------------------------------ |
+| Frontend     | React 19, React Router 6, Vite 8                 |
+| Backend      | FastAPI, SQLAlchemy, Alembic                      |
+| Database     | PostgreSQL                                       |
+| Auth         | JWT (python-jose) + bcrypt password hashing       |
+| File Storage | Local disk (car images via multipart upload)      |
 
-## 🛠 Technology Stack
-
-### Frontend
-- **React** - UI library for building interactive user interfaces
-- **Vite** - Next-generation frontend build tool for optimal performance
-- **CSS** - Styling and responsive design
-
-### Backend
-- **Python** - Server-side programming language
-- **FastAPI** - Modern, fast web framework for building APIs
-- **PostgreSQL** - Relational database for data persistence
-
-## ✨ Features
-
-### Customer Features
-- **User Authentication** - Secure login and session management
-- **Product Browsing** - Browse available products with detailed information
-- **Order History** - View complete purchase history
-- **Order Status Tracking** - Real-time tracking of current orders and shipment status
-- **Order Details** - Access detailed information about each order including items, prices, and delivery timeline
-
-### Admin Features
-- **Customer Management** - Add, edit, and manage customer accounts
-- **Shipping Status Updates** - Update and manage order shipping status in real-time
-- **Product Inventory** - Add, edit, and delete products from the catalog
-- **Order Assignment** - Add products to customer orders
-- **Dashboard** - Comprehensive admin dashboard for monitoring all operations
-- **User Administration** - Manage admin and customer roles
-
-## 📂 Project Structure
+## Project Structure
 
 ```
 AsanShipCo/
-├── src/
+├── src/                          # React frontend
+│   ├── pages/                    # Route-level page components
+│   │   ├── Landing.jsx           # Public marketing page
+│   │   ├── Login.jsx             # JWT-authenticated sign-in
+│   │   ├── AdminDashboard.jsx    # Admin dashboard shell
+│   │   └── CustomerDashboard.jsx # Customer dashboard shell
 │   ├── components/
-│   │   ├── Dashboard.jsx         # Admin dashboard
-│   │   └── login.jsx             # Authentication component
-│   ├── styles/
-│   │   ├── dashboard.css         # Dashboard styling
-│   │   └── login.css             # Login styling
-│   ├── App.jsx                   # Main app component
-│   ├── main.jsx                  # Application entry point
-│   ├── index.css                 # Global styles
-│   └── assets/                   # Static assets
-├── public/                       # Public assets
-├── package.json                  # Frontend dependencies
-├── vite.config.js               # Vite configuration
-├── eslint.config.js             # ESLint rules
-└── README.md                     # This file
+│   │   ├── admin/                # Admin-only views
+│   │   │   ├── ManageCars.jsx    # Car CRUD with image uploads
+│   │   │   ├── ManageCustomers.jsx
+│   │   │   ├── ManageShipping.jsx
+│   │   │   └── AssignCar.jsx     # Link cars to customers
+│   │   ├── customer/             # Customer-only views
+│   │   │   ├── BrowseCars.jsx    # Browse available vehicles
+│   │   │   └── OrderHistory.jsx  # View orders by status
+│   │   └── forms/                # Shared form components
+│   ├── layouts/                  # Navbar and Sidebar
+│   ├── services/api.js           # API client (fetch + JWT)
+│   ├── data/mockData.js          # Status constants for dropdowns
+│   ├── styles/                   # Component-scoped CSS
+│   └── assets/                   # Static images
+├── BackEnd/                      # FastAPI backend
+│   ├── models/                   # SQLAlchemy ORM models
+│   ├── schemas/                  # Pydantic request/response schemas
+│   ├── routes/                   # API route handlers
+│   ├── utils/auth.py             # JWT, bcrypt, role guards
+│   ├── alembic/                  # Database migrations
+│   ├── uploads/                  # Uploaded car images (gitignored)
+│   ├── main.py                   # FastAPI app entry point
+│   ├── config.py                 # Environment variable loader
+│   ├── database.py               # SQLAlchemy engine and session
+│   └── seed.py                   # Default admin and customer accounts
+├── vite.config.js
+├── package.json
+└── .gitignore
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- **Node.js** (v16 or higher) - For running the React frontend
-- **Python** (v3.8 or higher) - For running the FastAPI backend
-- **PostgreSQL** (v12 or higher) - Database server
-- **pip** - Python package manager
 
-### Frontend Setup
-
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-   The frontend will be available at `http://localhost:5173` (or the port specified by Vite)
-
-3. **Build for production**
-   ```bash
-   npm run build
-   ```
+- Node.js 18+
+- Python 3.10+
+- PostgreSQL 14+
 
 ### Backend Setup
 
-1. **Create a virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+```bash
+cd BackEnd
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
 
-3. **Configure database**
-   - Create a PostgreSQL database for the project
-   - Set up environment variables for database connection
+# Install dependencies
+pip install -r requirements.txt
 
-4. **Run database migrations** (if applicable)
-   ```bash
-   alembic upgrade head
-   ```
+# Configure environment
+cp .env.example .env
+# Edit .env — set DATABASE_URL, generate a strong SECRET_KEY
 
-5. **Start the FastAPI server**
-   ```bash
-   uvicorn main:app --reload
-   ```
-   The API will be available at `http://localhost:8000`
+# Run database migrations
+alembic upgrade head
 
-## 🔐 Authentication & Authorization
+# Seed default accounts
+python seed.py
 
-The application implements role-based access control with two user types:
-
-### Admin Role
-- Full administrative privileges
-- Access to customer management
-- Inventory and product management
-- Shipping status control
-- Can add and edit all order information
-
-### Customer Role
-- Limited to personal account features
-- View only their own orders and order history
-- Browse available products
-- Cannot modify order or customer data
-
-## 📡 API Endpoints
-
-**Note:** Detailed API documentation available at `http://localhost:8000/docs` when the FastAPI backend is running.
-
-### Core Endpoints
-- `POST /auth/login` - Customer/Admin login
-- `GET /products` - Browse products
-- `GET /orders` - Retrieve customer orders
-- `GET /orders/{id}/status` - Check order status
-- `POST /admin/customers` - Create new customer (Admin only)
-- `PUT /admin/orders/{id}/status` - Update shipping status (Admin only)
-- `POST /admin/products` - Add new product (Admin only)
-
-## 🗄 Database Schema
-
-The PostgreSQL database includes tables for:
-- **Users** - Customer and admin accounts
-- **Products** - Product catalog and inventory
-- **Orders** - Order records and customer purchases
-- **OrderItems** - Individual items within orders
-- **Shipping** - Shipping and delivery information
-
-## 🔧 Configuration
-
-Create a `.env` file in the backend directory with the following variables:
-
-```
-DATABASE_URL=postgresql://user:password@localhost/asanshipco
-SECRET_KEY=your_secret_key_here
-ALLOWED_ORIGINS=http://localhost:5173
-DEBUG=True
+# Start the API server
+uvicorn main:app --reload --port 8000
 ```
 
-## 📝 Usage
+### Frontend Setup
 
-### For Customers
-1. Navigate to the login page
-2. Enter credentials or create a new account
-3. Browse available products
-4. View order history and current order status
-5. Track shipments in real-time
+```bash
+# From the project root
+npm install
+npm run dev
+```
 
-### For Admins
-1. Log in with admin credentials
-2. Access the admin dashboard
-3. Manage customers, products, and orders
-4. Update shipping status for orders
-5. Monitor all platform activities
+The frontend runs at `http://localhost:5173` and expects the API at `http://localhost:8000` (configurable via `VITE_API_URL`).
 
-## 🤝 Contributing
+## Environment Variables
 
-Contributions are welcome! Please follow these guidelines:
-- Create a new branch for your feature
-- Follow the existing code style
-- Test your changes thoroughly
-- Submit a pull request with detailed description
+### Backend (`BackEnd/.env`)
 
-## 📄 License
+| Variable          | Description                                | Example                                            |
+| ----------------- | ------------------------------------------ | -------------------------------------------------- |
+| `DATABASE_URL`    | PostgreSQL connection string               | `postgresql://user:pass@localhost:5432/asan_shipco` |
+| `SECRET_KEY`      | JWT signing key (use a long random string) | `a3f8...64 hex chars`                              |
+| `ALLOWED_ORIGINS` | Comma-separated CORS origins               | `http://localhost:5173`                            |
 
-This project is proprietary software developed for AsanShipCo. All rights reserved.
+### Frontend
 
-## 📞 Support
+| Variable       | Description     | Default                 |
+| -------------- | --------------- | ----------------------- |
+| `VITE_API_URL` | Backend API URL | `http://localhost:8000` |
 
-For issues, questions, or feature requests, please contact the development team or open an issue in the project repository.
+## Default Accounts
 
----
+Created by `seed.py` for initial setup:
 
-**Built with ❤️ for AsanShipCo Customers**
+| Role     | Email                   | Password    |
+| -------- | ----------------------- | ----------- |
+| Admin    | admin@asanshipco.com    | admin123    |
+| Customer | customer@asanshipco.com | customer123 |
+
+**Change these passwords immediately after first login.**
+
+## Features
+
+### Admin Dashboard
+- **Manage Cars** — Add, edit, delete vehicles with multi-image uploads
+- **Manage Customers** — Create and manage customer records
+- **Assign Cars** — Link available cars to customers via shipping orders
+- **Manage Shipping** — Track and update order statuses through the full lifecycle
+
+### Customer Dashboard
+- **Browse Cars** — View available vehicles with image carousels
+- **Order History** — View orders filtered by status (Pending, In Process, Delivered)
+
+### Public Pages
+- **Landing Page** — Company overview with services, features, and contact info
+- **Login** — JWT-authenticated sign-in with role-based redirect
+
+## Database Schema
+
+Four tables managed via SQLAlchemy + Alembic:
+
+| Table       | Key Fields                                                     |
+| ----------- | -------------------------------------------------------------- |
+| `users`     | id, name, email, password_hash, role (admin/customer)          |
+| `customers` | id, name, email, phone, address, user_id (FK to users)        |
+| `cars`      | id, make, model, year, color, license_plate, status, images    |
+| `orders`    | id, customer_id, car_id, status, shipping_address, dates       |
+
+## API Endpoints
+
+Interactive docs available at `http://localhost:8000/docs` when the backend is running.
+
+| Method | Path                             | Auth   | Description                 |
+| ------ | -------------------------------- | ------ | --------------------------- |
+| POST   | `/auth/login`                    | Public | Login, returns JWT          |
+| POST   | `/auth/register`                 | Admin  | Register a new user         |
+| GET    | `/auth/me`                       | User   | Current user profile        |
+| GET    | `/api/cars`                      | User   | List all cars               |
+| GET    | `/api/cars/available`            | User   | List available cars         |
+| POST   | `/api/cars`                      | Admin  | Create a car                |
+| PUT    | `/api/cars/:id`                  | Admin  | Update a car                |
+| DELETE | `/api/cars/:id`                  | Admin  | Delete a car                |
+| POST   | `/api/cars/:id/images`           | Admin  | Upload car images           |
+| DELETE | `/api/cars/:id/images/:filename` | Admin  | Delete a car image          |
+| GET    | `/api/customers`                 | Admin  | List all customers          |
+| POST   | `/api/customers`                 | Admin  | Create a customer           |
+| PUT    | `/api/customers/:id`             | Admin  | Update a customer           |
+| DELETE | `/api/customers/:id`             | Admin  | Delete a customer           |
+| GET    | `/api/orders`                    | User   | List orders (role-filtered) |
+| POST   | `/api/orders`                    | Admin  | Create an order             |
+| PUT    | `/api/orders/:id`                | Admin  | Update an order             |
+| DELETE | `/api/orders/:id`                | Admin  | Delete an order             |
+
+## License
+
+Proprietary. All rights reserved.

@@ -1,3 +1,4 @@
+# Loads environment variables (DATABASE_URL, SECRET_KEY, ALLOWED_ORIGINS) from .env file.
 import os
 from dotenv import load_dotenv
 

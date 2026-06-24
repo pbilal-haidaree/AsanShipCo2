@@ -1,3 +1,4 @@
+// Update shipping form. Inline status dropdown to change a shipping order's current status.
 import { useState } from 'react';
 import '../../styles/forms.css';
 

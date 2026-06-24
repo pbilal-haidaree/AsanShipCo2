@@ -1,3 +1,4 @@
+# Auth endpoints: JWT login, admin-only user registration, and current-user retrieval.
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from database import get_db

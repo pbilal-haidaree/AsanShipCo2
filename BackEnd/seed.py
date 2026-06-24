@@ -1,4 +1,4 @@
-"""Run once to create default accounts and sample data."""
+# Run once to create default admin and customer accounts for initial setup.
 import sys
 from database import SessionLocal
 from models.user import User

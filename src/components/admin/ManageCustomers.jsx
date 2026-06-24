@@ -1,3 +1,4 @@
+// Admin customer management. Lists, adds, and deletes customer records via API.
 import { useState, useEffect } from 'react';
 import { getCustomers, deleteCustomer } from '../../services/api';
 import AddCustomerForm from '../forms/AddCustomerForm';

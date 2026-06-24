@@ -1,3 +1,4 @@
+# Auth utilities: bcrypt password hashing, JWT token creation/verification, and role guards.
 from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials

@@ -1,3 +1,4 @@
+# SQLAlchemy engine, session factory, and declarative base. Provides get_db dependency for routes.
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from config import DATABASE_URL

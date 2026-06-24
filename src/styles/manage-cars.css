@@ -1,3 +1,4 @@
+/* Styles for the admin car management table: action buttons and responsive horizontal scroll. */
 .cars-table {
   background: white;
   border-radius: var(--radius-lg);

@@ -1,6 +1,11 @@
+// Public landing page. Hero, about, services, features, CTA, contact, and footer sections.
 import { Link } from 'react-router-dom';
 import Navbar from '../layouts/Navbar';
 import Contact from '../components/Contact';
+import cargoshipImg from '../assets/cargoship.jpg';
+import portImg from '../assets/port.jpg';
+import truckImg from '../assets/truck.jpg';
+import cargoship1Img from '../assets/cargoship1.jpg';
 import '../styles/landing.css';
 
 function Landing() {
@@ -11,6 +16,7 @@ function Landing() {
         {/* Hero Section */}
         <section className="hero">
           <div className="hero-bg">
+            <img src={cargoshipImg} alt="" className="hero-bg-image" />
             <div className="hero-gradient"></div>
             <div className="hero-pattern"></div>
           </div>
@@ -51,15 +57,20 @@ function Landing() {
 
         {/* About Section */}
         <section className="about" id="about">
-          <div className="container">
-            <span className="section-tag">About Us</span>
-            <h2>Your Trusted Vehicle<br />Shipping Partner</h2>
-            <p className="about-text">
-              AsanShipCo is a leading provider of professional vehicle shipping and logistics services.
-              With two decades of experience and a commitment to excellence, we ensure your vehicles
-              are delivered safely, on time, and with complete peace of mind. From compact cars to
-              heavy-duty trucks, we handle it all.
-            </p>
+          <div className="container about-layout">
+            <div className="about-image">
+              <img src={portImg} alt="Shipping port with cargo containers" />
+            </div>
+            <div className="about-content">
+              <span className="section-tag">About Us</span>
+              <h2>Your Trusted Vehicle<br />Shipping Partner</h2>
+              <p className="about-text">
+                AsanShipCo is a leading provider of professional vehicle shipping and logistics services.
+                With two decades of experience and a commitment to excellence, we ensure your vehicles
+                are delivered safely, on time, and with complete peace of mind. From compact cars to
+                heavy-duty trucks, we handle it all.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -68,6 +79,9 @@ function Landing() {
           <div className="container">
             <span className="section-tag">What We Offer</span>
             <h2>Our Services</h2>
+            <div className="services-banner">
+              <img src={cargoship1Img} alt="Cargo ship at sea" />
+            </div>
             <div className="services-grid">
               <div className="service-card">
                 <div className="service-icon">
@@ -187,7 +201,9 @@ function Landing() {
 
         {/* CTA Section */}
         <section className="cta-section">
-          <div className="container">
+          <img src={truckImg} alt="" className="cta-bg-image" />
+          <div className="cta-overlay"></div>
+          <div className="container cta-content">
             <h2>Ready to Ship Your Vehicle?</h2>
             <p>Join thousands of satisfied customers who trust AsanShipCo for safe, reliable vehicle shipping.</p>
             <Link to="/login" className="cta-button">

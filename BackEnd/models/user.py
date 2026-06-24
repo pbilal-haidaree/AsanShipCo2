@@ -1,3 +1,4 @@
+# User model. Stores admin and customer accounts with hashed passwords and role-based access.
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone

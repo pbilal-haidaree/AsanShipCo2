@@ -1,3 +1,4 @@
+// Image carousel. Slideshow with prev/next navigation and dot indicators for car photos.
 import { useState } from 'react';
 import '../styles/image-carousel.css';
 

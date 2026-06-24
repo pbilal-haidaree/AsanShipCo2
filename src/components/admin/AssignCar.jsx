@@ -1,3 +1,4 @@
+// Admin car assignment. Provides the order form to link an available car to a customer.
 import { useState } from 'react';
 import CreateOrderForm from '../forms/CreateOrderForm';
 import '../../styles/manage-shipping.css';

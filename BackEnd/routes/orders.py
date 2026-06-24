@@ -1,3 +1,4 @@
+# Order CRUD endpoints. Admins see all orders; customers only see their own.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
 from database import get_db

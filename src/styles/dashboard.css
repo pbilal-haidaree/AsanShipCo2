@@ -1,3 +1,4 @@
+/* Shared dashboard layout: wrapper, content area, section headers, and empty state styling. */
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;

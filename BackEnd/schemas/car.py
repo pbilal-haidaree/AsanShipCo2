@@ -1,3 +1,4 @@
+# Pydantic schemas for car creation, update, and API response serialization.
 from pydantic import BaseModel, Field
 from datetime import datetime
 

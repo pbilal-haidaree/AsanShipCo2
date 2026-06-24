@@ -1,3 +1,4 @@
+// Admin car management. Lists, adds, edits, and deletes cars with image upload support.
 import { useState, useEffect } from 'react';
 import { getCars, deleteCar } from '../../services/api';
 import { carStatuses } from '../../data/mockData';

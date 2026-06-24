@@ -1,3 +1,4 @@
+// Legacy login component. Kept for reference; replaced by pages/Login.jsx with API auth.
 import { useState } from 'react'
 import '../styles/login.css'
 

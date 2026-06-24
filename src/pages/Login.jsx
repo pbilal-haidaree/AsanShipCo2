@@ -1,6 +1,8 @@
+// Login page. Split-panel layout with branding image on left and auth form on right.
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
+import truckDarkImg from '../assets/truckdark.jpg';
 import '../styles/login.css';
 
 function Login({ onLoginSuccess }) {
@@ -43,6 +45,8 @@ function Login({ onLoginSuccess }) {
   return (
     <div className="login-page">
       <div className="login-left">
+        <img src={truckDarkImg} alt="" className="login-left-bg" />
+        <div className="login-left-overlay"></div>
         <Link to="/" className="login-brand">
           <img src="/tab2.png" alt="AsanShipCo" className="login-brand-logo" />
           <span>AsanShipCo</span>

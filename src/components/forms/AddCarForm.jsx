@@ -1,3 +1,4 @@
+// Add car form. Collects make, model, year, color, license plate, and images for a new car.
 import { useState } from 'react';
 import { createCar, uploadCarImages } from '../../services/api';
 import { carStatuses } from '../../data/mockData';

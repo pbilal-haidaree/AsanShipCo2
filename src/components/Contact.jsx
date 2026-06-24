@@ -1,3 +1,4 @@
+// Contact section. Displays WhatsApp, phone, and email links. Supports full and compact modes.
 import '../styles/contact.css';
 
 function Contact({ compact = false }) {

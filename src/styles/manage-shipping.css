@@ -1,3 +1,4 @@
+/* Styles for shipping order cards: responsive grid, status badges, and update buttons. */
 .shipping-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));

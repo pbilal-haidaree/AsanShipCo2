@@ -1,3 +1,4 @@
+/* Shared form styles: card containers, inputs, buttons, file uploads, and image previews. */
 .form-card {
   background: white;
   border-radius: var(--radius-lg);

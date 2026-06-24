@@ -1,3 +1,4 @@
+// Legacy dashboard component. Kept for reference; replaced by AdminDashboard and CustomerDashboard.
 import { useState } from 'react'
 import '../styles/dashboard.css'
 

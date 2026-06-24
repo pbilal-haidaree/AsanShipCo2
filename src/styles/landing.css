@@ -1,3 +1,4 @@
+/* Styles for the landing page: hero, about, services, features, CTA, and footer sections. */
 .landing {
   background: white;
 }
@@ -19,10 +20,18 @@
   z-index: 0;
 }
 
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.85) 0%, rgba(124, 58, 237, 0.8) 50%, rgba(99, 102, 241, 0.85) 100%);
 }
 
 .hero-pattern {
@@ -169,8 +178,31 @@
 /* ─── About ─── */
 .about {
   padding: 96px 24px;
-  text-align: center;
   background: var(--gray-50);
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.about-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.about-image img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.about-content {
+  text-align: left;
 }
 
 .about h2 {
@@ -186,8 +218,6 @@
   font-size: 17px;
   line-height: 1.8;
   color: var(--gray-500);
-  max-width: 640px;
-  margin: 0 auto;
 }
 
 /* ─── Services ─── */
@@ -202,6 +232,21 @@
   color: var(--gray-900);
   letter-spacing: -0.5px;
   margin-bottom: 48px;
+}
+
+.services-banner {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  box-shadow: var(--shadow-xl);
+}
+
+.services-banner img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
 }
 
 .services-grid {
@@ -319,10 +364,32 @@
 
 /* ─── CTA ─── */
 .cta-section {
-  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  position: relative;
   color: white;
   padding: 80px 24px;
   text-align: center;
+  overflow: hidden;
+}
+
+.cta-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.88) 0%, rgba(124, 58, 237, 0.85) 100%);
+  z-index: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
 }
 
 .cta-section h2 {
@@ -446,6 +513,23 @@
   .services,
   .features {
     padding: 64px 20px;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-content {
+    text-align: center;
+  }
+
+  .about-image img {
+    height: 260px;
+  }
+
+  .services-banner img {
+    height: 200px;
   }
 
   .about h2,

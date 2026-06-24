@@ -1,3 +1,4 @@
+// API service layer. Fetch-based client with JWT auth for cars, customers, orders, and images.
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function getToken() {

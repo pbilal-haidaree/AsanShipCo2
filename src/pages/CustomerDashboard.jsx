@@ -1,3 +1,4 @@
+// Customer dashboard. Sidebar navigation for browsing available cars and viewing order history.
 import { useState, useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';

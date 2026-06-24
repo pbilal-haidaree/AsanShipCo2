@@ -1,3 +1,4 @@
+// Admin dashboard. Sidebar navigation for managing cars, customers, assignments, and shipping.
 import { useState, useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';

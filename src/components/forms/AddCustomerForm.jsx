@@ -1,3 +1,4 @@
+// Add customer form. Collects name, email, phone, and address to create a new customer.
 import { useState } from 'react';
 import { createCustomer } from '../../services/api';
 import '../../styles/forms.css';

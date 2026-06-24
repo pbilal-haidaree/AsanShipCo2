@@ -1,3 +1,4 @@
+// Customer order history. Displays order cards with vehicle images, details, and shipping info.
 import { imageUrl } from '../../services/api';
 import ImageCarousel from '../ImageCarousel';
 import '../../styles/order-history.css';

@@ -1,3 +1,4 @@
+// Create order form. Assigns an available car to a customer with shipping address and date.
 import { useState, useEffect } from 'react';
 import { getCars, getCustomers, createOrder } from '../../services/api';
 import '../../styles/forms.css';

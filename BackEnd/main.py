@@ -1,3 +1,4 @@
+# FastAPI application entry point. Registers all routers, CORS middleware, and static file serving.
 import os
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware

@@ -1,3 +1,4 @@
+/* Styles for the admin customer management table with responsive horizontal scroll. */
 .customers-table {
   background: white;
   border-radius: var(--radius-lg);
