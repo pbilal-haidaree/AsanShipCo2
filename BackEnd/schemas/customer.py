@@ -20,8 +20,8 @@ class CustomerResponse(BaseModel):
     id: int
     name: str
     email: str
-    phone: str
-    address: str
+    phone: str | None = None
+    address: str | None = None
     created_at: datetime
 
     model_config = {"from_attributes": True}

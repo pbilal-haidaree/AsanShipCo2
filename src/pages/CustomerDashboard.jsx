@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';
+import BrowseCars from '../components/customer/BrowseCars';
 import OrderHistory from '../components/customer/OrderHistory';
 import Contact from '../components/Contact';
 import { getOrders } from '../services/api';
@@ -8,13 +9,16 @@ import '../styles/dashboard.css';
 import '../styles/customer-dashboard.css';
 
 function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
-  const [activeSection, setActiveSection] = useState('all');
+  const [activeSection, setActiveSection] = useState('browse');
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (activeSection === 'browse') return;
+
     const fetchOrders = async () => {
+      setLoading(true);
       try {
         const data = await getOrders();
         setOrders(data);
@@ -25,7 +29,7 @@ function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
       }
     };
     fetchOrders();
-  }, []);
+  }, [activeSection]);
 
   const getFilteredOrders = () => {
     if (activeSection === 'all') return orders;
@@ -59,18 +63,18 @@ function CustomerDashboard({ userRole, isLoggedIn, onLogout }) {
         />
 
         <main className="dashboard-content">
-          {loading ? (
+          {activeSection === 'browse' ? (
+            <BrowseCars />
+          ) : loading ? (
             <p>Loading orders...</p>
           ) : error ? (
             <p className="error-text">Error: {error}</p>
           ) : (
-            (activeSection === 'all' || activeSection === 'pending' || activeSection === 'in-process' || activeSection === 'delivered') && (
-              <OrderHistory
-                orders={filteredOrders}
-                title={statusLabels[activeSection]}
-                status={activeSection === 'all' ? null : activeSection}
-              />
-            )
+            <OrderHistory
+              orders={filteredOrders}
+              title={statusLabels[activeSection]}
+              status={activeSection === 'all' ? null : activeSection}
+            />
           )}
         </main>
       </div>

@@ -21,12 +21,16 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db), _=Depends(re
     if not car:
         raise HTTPException(status_code=404, detail="Car not found")
 
+    if car.status != "Available":
+        raise HTTPException(status_code=400, detail="Car is not available for assignment")
+
     db_order = Order(
         customer_id=order.customer_id,
         car_id=order.car_id,
         shipping_address=order.shipping_address,
         estimated_delivery=order.estimated_delivery,
     )
+    car.status = "Sold"
     db.add(db_order)
     db.commit()
     db.refresh(db_order)

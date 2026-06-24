@@ -118,7 +118,11 @@ function Login({ onLoginSuccess }) {
             </div>
             <div className="demo-row">
               <span className="demo-label">Admin</span>
-              <code>admin@asanshipco.com / admin123!</code>
+              <code>admin@asanshipco.com / admin123</code>
+            </div>
+            <div className="demo-row">
+              <span className="demo-label">Customer</span>
+              <code>customer@asanshipco.com / customer123</code>
             </div>
           </div>
         </div>

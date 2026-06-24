@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getOrders, updateOrder } from '../../services/api';
 import { shippingStatuses } from '../../data/mockData';
+import CreateOrderForm from '../forms/CreateOrderForm';
 import UpdateShippingForm from '../forms/UpdateShippingForm';
 import '../../styles/manage-shipping.css';
 
@@ -9,6 +10,7 @@ function ManageShipping() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [editingOrderId, setEditingOrderId] = useState(null);
+  const [showAssignForm, setShowAssignForm] = useState(false);
 
   const fetchOrders = async () => {
     try {
@@ -34,6 +36,11 @@ function ManageShipping() {
     }
   };
 
+  const handleOrderCreated = () => {
+    setShowAssignForm(false);
+    fetchOrders();
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'Delivered': return 'status-delivered';
@@ -55,12 +62,24 @@ function ManageShipping() {
   return (
     <div className="manage-shipping">
       <div className="section-header">
-        <h2>Shipping Status Management</h2>
-        <p>Update order and shipping statuses</p>
+        <h2>Shipping Management</h2>
+        <button
+          className="add-button"
+          onClick={() => setShowAssignForm(!showAssignForm)}
+        >
+          {showAssignForm ? 'Cancel' : '+ Assign Car'}
+        </button>
       </div>
 
+      {showAssignForm && (
+        <CreateOrderForm
+          onSubmit={handleOrderCreated}
+          onCancel={() => setShowAssignForm(false)}
+        />
+      )}
+
       {orders.length === 0 ? (
-        <div className="empty-state"><p>No orders found</p></div>
+        <div className="empty-state"><p>No orders yet. Assign a car to a customer to get started.</p></div>
       ) : (
         <div className="shipping-cards">
           {orders.map(order => (

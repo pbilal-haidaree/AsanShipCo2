@@ -68,6 +68,10 @@ export function getCars() {
   return request('/api/cars');
 }
 
+export function getAvailableCars() {
+  return request('/api/cars/available');
+}
+
 export function createCar(data) {
   return json('/api/cars', 'POST', data);
 }

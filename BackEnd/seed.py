@@ -1,4 +1,4 @@
-"""Run once to create the default admin account and sample data."""
+"""Run once to create default accounts and sample data."""
 import sys
 from database import SessionLocal
 from models.user import User
@@ -8,33 +8,45 @@ from utils.auth import hash_password
 db = SessionLocal()
 
 try:
-    existing = db.query(User).filter(User.email == "admin@asanshipco.com").first()
-    if existing:
-        print("Admin account already exists, skipping.")
-    else:
+    # Admin account
+    if not db.query(User).filter(User.email == "admin@asanshipco.com").first():
         admin = User(
             name="Admin",
             email="admin@asanshipco.com",
-            password_hash=hash_password("admin123!"),
+            password_hash=hash_password("admin123"),
             role="admin",
         )
         db.add(admin)
         db.commit()
-        print("Default admin created: admin@asanshipco.com / admin123!")
-        print("IMPORTANT: Change this password after first login!")
-
-    if not db.query(Customer).first():
-        sample = Customer(
-            name="Sample Customer",
-            email="customer@example.com",
-            phone="+1234567890",
-            address="123 Main St, New York, NY 10001",
-        )
-        db.add(sample)
-        db.commit()
-        print("Sample customer created.")
+        print("Admin created: admin@asanshipco.com / admin123")
     else:
-        print("Customers already exist, skipping sample data.")
+        print("Admin already exists, skipping.")
+
+    # Customer account
+    if not db.query(User).filter(User.email == "customer@asanshipco.com").first():
+        customer_user = User(
+            name="Jane Smith",
+            email="customer@asanshipco.com",
+            password_hash=hash_password("customer123"),
+            role="customer",
+        )
+        db.add(customer_user)
+        db.flush()
+
+        customer = Customer(
+            name="Jane Smith",
+            email="customer@asanshipco.com",
+            phone="+1 555-123-4567",
+            address="123 Main St, New York, NY 10001",
+            user_id=customer_user.id,
+        )
+        db.add(customer)
+        db.commit()
+        print("Customer created: customer@asanshipco.com / customer123")
+    else:
+        print("Customer already exists, skipping.")
+
+    print("\nIMPORTANT: Change these passwords after first login!")
 
 except Exception as e:
     db.rollback()

@@ -33,6 +33,11 @@ def get_all_cars(db: Session = Depends(get_db), _=Depends(get_current_user)):
     return db.query(Car).all()
 
 
+@router.get("/available", response_model=list[CarResponse])
+def get_available_cars(db: Session = Depends(get_db), _=Depends(get_current_user)):
+    return db.query(Car).filter(Car.status == "Available").all()
+
+
 @router.get("/{car_id}", response_model=CarResponse)
 def get_car(car_id: int, db: Session = Depends(get_db), _=Depends(get_current_user)):
     car = db.query(Car).filter(Car.id == car_id).first()
